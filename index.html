@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Мои проекты</title>
+<title>Корюн — создание сайтов</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================================
+   ОСНОВА
+========================================= */
 
 * {
     margin: 0;
@@ -23,172 +27,240 @@ html {
 }
 
 body {
-    background: #090909;
-    color: #f4ead5;
+    background: #080808;
+    color: #f3ead8;
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
 }
 
-/* =========================
-   ОБЩЕЕ
-========================= */
+/* =========================================
+   ОТКРЫТКА
+========================================= */
 
-section {
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-}
+#invitation {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
 
-/* =========================
-   ПЕРВЫЙ ЭКРАН
-========================= */
-
-#cover {
-    min-height: 100vh;
-    background:
-        linear-gradient(
-            rgba(0,0,0,0.18),
-            rgba(0,0,0,0.35)
-        ),
-        url("cover.jpg") center center / cover no-repeat;
+    background: #050505;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     cursor: pointer;
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease,
+        visibility 1.2s ease;
 }
 
-.cover-overlay {
+#invitation.hide {
+    opacity: 0;
+    transform: scale(1.08);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.invitation-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 1.2s ease;
+}
+
+#invitation.hide .invitation-image {
+    transform: scale(1.08);
+}
+
+/* Затемнение */
+
+.invitation-shade {
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        circle at center,
-        transparent 20%,
-        rgba(0,0,0,0.35) 100%
-    );
-}
 
-.cover-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 30px;
-}
-
-.cover-text h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(45px, 8vw, 95px);
-    font-weight: 500;
-    letter-spacing: 4px;
-    color: #f5dfaa;
-    text-shadow:
-        0 0 15px rgba(255,215,130,0.45),
-        0 4px 20px rgba(0,0,0,0.7);
-}
-
-.cover-text p {
-    margin-top: 18px;
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #f5e8c8;
-}
-
-/* Кнопка-подсказка */
-
-.start-hint {
-    margin-top: 45px;
-    animation: pulse 2s infinite;
-}
-
-.start-hint span {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-}
-
-.arrow {
-    width: 18px;
-    height: 18px;
-    border-right: 2px solid #e7c878;
-    border-bottom: 2px solid #e7c878;
-    transform: rotate(45deg);
-    margin: auto;
-    animation: arrowDown 1.5s infinite;
-}
-
-@keyframes arrowDown {
-    0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 0.4;
-    }
-    50% {
-        transform: translateY(9px) rotate(45deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 0.4;
-    }
-}
-
-@keyframes pulse {
-    0%,100% {
-        opacity: .65;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* =========================
-   ЗАГОЛОВКИ
-========================= */
-
-.section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 6vw, 75px);
-    font-weight: 500;
-    color: #e8c978;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.gold-line {
-    width: 80px;
-    height: 1px;
-    background: #c9a64c;
-    margin: -40px auto 50px;
-}
-
-/* =========================
-   О СЕБЕ
-========================= */
-
-#about {
-    padding: 100px 7%;
     background:
         radial-gradient(
-            circle at 20% 20%,
-            rgba(185,145,60,0.10),
+            circle at center,
+            transparent 35%,
+            rgba(0,0,0,0.25) 100%
+        );
+
+    pointer-events: none;
+}
+
+/* Подсказка */
+
+.invitation-hint {
+    position: absolute;
+
+    bottom: 45px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    color: rgba(255,245,215,0.9);
+
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    animation: hintPulse 2.5s infinite;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,0.8);
+}
+
+.invitation-arrow {
+    width: 17px;
+    height: 17px;
+
+    border-right: 1px solid #e5c774;
+    border-bottom: 1px solid #e5c774;
+
+    transform: rotate(45deg);
+
+    margin: 15px auto 0;
+
+    animation: arrowMove 1.5s infinite;
+}
+
+@keyframes hintPulse {
+    0%,100% {
+        opacity: .55;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes arrowMove {
+    0% {
+        transform: translateY(0) rotate(45deg);
+    }
+
+    50% {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(45deg);
+    }
+}
+
+/* =========================================
+   САМ САЙТ
+========================================= */
+
+#site {
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1.3s ease,
+        visibility 1.3s ease;
+}
+
+#site.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================
+   ФОН САЙТА
+========================================= */
+
+.site-background {
+    position: fixed;
+    inset: 0;
+
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 15%,
+            rgba(190,145,55,0.14),
             transparent 35%
         ),
-        #0c0c0c;
+        radial-gradient(
+            ellipse at 85% 65%,
+            rgba(150,105,35,0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 10% 85%,
+            rgba(150,105,35,0.06),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #050505 0%,
+            #10100f 45%,
+            #070707 100%
+        );
+}
+
+.site-background::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    opacity: .16;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,.7) .5px,
+            transparent .5px
+        );
+
+    background-size: 5px 5px;
+
+    pointer-events: none;
+}
+
+/* =========================================
+   СЕКЦИИ
+========================================= */
+
+section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* =========================================
+   ABOUT
+========================================= */
+
+#about {
+    min-height: 100vh;
+
+    padding: 100px 7%;
 
     display: flex;
     align-items: center;
 }
 
 .about-container {
-    max-width: 1200px;
     width: 100%;
+    max-width: 1200px;
+
     margin: auto;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 80px;
+
     align-items: center;
 }
 
@@ -196,138 +268,226 @@ section {
     animation: fadeUp 1s ease;
 }
 
-.about-text h2 {
+.about-text h1 {
     font-family: 'Cormorant Garamond', serif;
-    color: #e5c774;
-    font-size: clamp(45px, 6vw, 70px);
+
+    font-size: clamp(50px, 7vw, 85px);
+
     font-weight: 500;
-    margin-bottom: 25px;
+
+    color: #e7c875;
+
+    line-height: .95;
+
+    margin-bottom: 30px;
+}
+
+.about-text h1 span {
+    display: block;
+
+    color: #f2eadb;
+
+    font-size: .48em;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 15px;
 }
 
 .about-text p {
-    color: #d0c7b5;
+    max-width: 600px;
+
+    color: #cfc6b7;
+
     font-size: 16px;
+
     line-height: 1.9;
-    margin-bottom: 25px;
+
+    margin-bottom: 22px;
 }
 
 .about-list {
     list-style: none;
-    margin-top: 30px;
+
+    margin-top: 35px;
 }
 
 .about-list li {
     position: relative;
+
     padding-left: 25px;
-    margin-bottom: 15px;
-    color: #d7cfbf;
+
+    margin-bottom: 16px;
+
+    color: #d9d0c1;
+
     font-size: 14px;
+
+    letter-spacing: .3px;
 }
 
 .about-list li::before {
     content: "◆";
+
     position: absolute;
+
     left: 0;
-    color: #d8b95e;
-    font-size: 8px;
-    top: 4px;
+    top: 5px;
+
+    color: #d7b85e;
+
+    font-size: 7px;
 }
+
+/* =========================================
+   ФОТО
+========================================= */
 
 .photo-frame {
     position: relative;
-    max-width: 450px;
+
+    width: min(100%, 440px);
+
     margin: auto;
 }
 
 .photo-frame::before {
     content: "";
+
     position: absolute;
+
     inset: -12px;
-    border: 1px solid rgba(220,190,110,0.35);
+
+    border: 1px solid rgba(221,190,108,.35);
+
     transform: rotate(3deg);
+}
+
+.photo-frame::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -5px;
+
+    border: 1px solid rgba(221,190,108,.15);
+
+    transform: rotate(-2deg);
 }
 
 .photo-frame img {
     width: 100%;
+
     display: block;
+
     position: relative;
+
     z-index: 2;
-    filter: brightness(.9);
+
+    filter: brightness(.91);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.65);
 }
 
-/* =========================
-   МОИ РАБОТЫ
-========================= */
+/* =========================================
+   РАЗДЕЛ РАБОТ
+========================================= */
 
 #works {
     min-height: 100vh;
-    padding: 100px 20px;
 
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(170,125,45,0.08),
-            transparent 45%
-        ),
-        #080808;
+    padding: 100px 25px;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+}
+
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: clamp(48px, 7vw, 80px);
+
+    font-weight: 500;
+
+    text-align: center;
+
+    color: #e4c573;
+
+    margin-bottom: 15px;
+}
+
+.gold-line {
+    width: 75px;
+    height: 1px;
+
+    background: #c7a34e;
+
+    margin: 0 auto 25px;
 }
 
 .works-subtitle {
     text-align: center;
-    color: #aaa092;
-    font-size: 14px;
+
+    color: #928b7e;
+
+    font-size: 13px;
+
     letter-spacing: 2px;
-    margin-top: -30px;
-    margin-bottom: 55px;
+
+    margin-bottom: 60px;
 }
 
-/* Контейнер конвертов */
+/* =========================================
+   КОНВЕРТЫ
+========================================= */
 
 .envelopes-wrapper {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1050px;
+
     margin: auto;
 
     display: flex;
+
     justify-content: center;
-    align-items: stretch;
+
     gap: 30px;
 }
 
-/* =========================
-   КОНВЕРТ
-========================= */
-
 .envelope-link {
-    text-decoration: none;
-    color: inherit;
     flex: 1;
+
+    text-decoration: none;
+
+    color: inherit;
+
     min-width: 0;
 }
 
 .envelope {
+    height: 290px;
+
     position: relative;
-    height: 300px;
+
+    overflow: hidden;
 
     background:
         linear-gradient(
             145deg,
-            #d8bd70,
-            #a8873d 50%,
-            #d7bd72
+            #d8bd70 0%,
+            #a9863a 50%,
+            #d8bd70 100%
         );
 
-    border: 1px solid rgba(255,235,170,0.65);
+    border: 1px solid rgba(255,237,177,.65);
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,0.65),
-        inset 0 0 30px rgba(255,235,170,0.15);
-
-    overflow: hidden;
+        0 25px 55px rgba(0,0,0,.65),
+        inset 0 0 30px rgba(255,240,180,.13);
 
     transition:
         transform .5s ease,
@@ -336,41 +496,73 @@ section {
 
 .envelope:hover {
     transform: translateY(-12px);
+
     box-shadow:
-        0 30px 70px rgba(0,0,0,0.8),
-        0 0 35px rgba(210,175,80,0.25);
+        0 35px 75px rgba(0,0,0,.8),
+        0 0 35px rgba(213,176,79,.22);
 }
 
-/* Треугольная часть конверта */
+/* Внутренняя бумага */
 
-.envelope::before {
-    content: "";
+.envelope-paper {
     position: absolute;
-    top: 0;
-    left: 0;
 
-    width: 0;
-    height: 0;
+    left: 8%;
+    right: 8%;
 
-    border-left: 50% solid transparent;
-    border-right: 50% solid transparent;
+    bottom: 20px;
+
+    height: 175px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf0,
+            #eee2c8
+        );
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.35);
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    text-align: center;
+
+    padding: 20px 15px;
+
+    transition:
+        transform .6s ease;
 }
 
-/* Верхний клапан */
+.envelope:hover .envelope-paper {
+    transform: translateY(-12px);
+}
+
+/* Клапан */
 
 .envelope-flap {
     position: absolute;
+
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 150px;
+    height: 155px;
 
-    background: linear-gradient(
-        145deg,
-        #ebd68f,
-        #b99948
-    );
+    background:
+        linear-gradient(
+            145deg,
+            #edd790,
+            #b99747
+        );
 
     clip-path: polygon(
         0 0,
@@ -378,183 +570,170 @@ section {
         50% 100%
     );
 
-    transform-origin: top center;
-    transition: transform .6s ease;
-    z-index: 3;
+    z-index: 4;
 
-    border-bottom: 1px solid rgba(255,240,190,.4);
+    transform-origin: top center;
+
+    transition:
+        transform .6s ease;
 }
 
 .envelope:hover .envelope-flap {
     transform: rotateX(25deg);
 }
 
-/* Бумага внутри */
-
-.envelope-paper {
-    position: absolute;
-
-    left: 8%;
-    right: 8%;
-    bottom: 25px;
-
-    height: 170px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fffaf0,
-            #eee2c6
-        );
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.3);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-
-    padding: 25px 15px;
-
-    z-index: 2;
-
-    transition: transform .6s ease;
-}
-
-.envelope:hover .envelope-paper {
-    transform: translateY(-15px);
-}
-
 /* Печать */
 
 .seal {
     position: absolute;
-    top: 108px;
 
-    width: 55px;
-    height: 55px;
+    top: 108px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 56px;
+    height: 56px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            #f3d98b 0%,
-            #b58b34 65%,
-            #80601f 100%
+            #f2da8c 0%,
+            #b58c37 65%,
+            #7e5d1e 100%
         );
 
-    border: 2px solid #f3dda1;
+    border: 2px solid #f3dda2;
+
+    color: #74561f;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 22px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    color: #73551e;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 23px;
-
-    z-index: 5;
+    z-index: 6;
 
     box-shadow:
-        0 5px 15px rgba(0,0,0,.35);
+        0 6px 16px rgba(0,0,0,.4);
 }
 
-/* Название проекта */
+/* Название */
 
 .envelope-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
+
+    font-size: 27px;
+
     font-weight: 600;
-    color: #54401d;
-    text-align: center;
-    line-height: 1.1;
+
+    line-height: 1.05;
+
+    color: #59431d;
 }
 
 .envelope-small {
-    margin-top: 10px;
+    margin-top: 12px;
+
+    color: #8a7548;
+
     font-size: 9px;
+
     letter-spacing: 2px;
+
     text-transform: uppercase;
-    color: #8b7548;
 }
 
-/* =========================
+/* =========================================
    КОНТАКТЫ
-========================= */
+========================================= */
 
 #contact {
-    min-height: 70vh;
+    min-height: 80vh;
+
     padding: 100px 20px;
 
     display: flex;
+
     flex-direction: column;
-    align-items: center;
+
     justify-content: center;
 
-    text-align: center;
+    align-items: center;
 
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(192,151,58,0.12),
-            transparent 50%
-        ),
-        #090909;
+    text-align: center;
 }
 
 .contact-text {
-    max-width: 650px;
+    max-width: 620px;
+
     color: #bdb5a7;
-    line-height: 1.8;
+
     font-size: 15px;
-    margin-bottom: 45px;
+
+    line-height: 1.9;
+
+    margin: 0 auto 45px;
 }
 
 .contact-buttons {
     display: flex;
+
     gap: 20px;
-    flex-wrap: wrap;
+
     justify-content: center;
+
+    flex-wrap: wrap;
 }
 
 .contact-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    min-width: 210px;
 
-    min-width: 200px;
-    padding: 16px 30px;
+    padding: 17px 30px;
 
     text-decoration: none;
 
     border: 1px solid #b99746;
+
     color: #e6ca7b;
 
-    font-size: 12px;
+    font-size: 11px;
+
     letter-spacing: 2px;
+
     text-transform: uppercase;
 
     transition: .4s ease;
 }
 
 .contact-button:hover {
-    background: #c5a452;
+    background: #c6a452;
+
     color: #111;
-    box-shadow: 0 0 25px rgba(200,160,70,.3);
+
+    box-shadow:
+        0 0 25px rgba(200,160,70,.3);
 }
 
 .footer {
-    margin-top: 80px;
+    margin-top: 75px;
+
     color: #625d53;
+
     font-size: 10px;
+
     letter-spacing: 2px;
 }
 
-/* =========================
-   КНОПКА МУЗЫКИ
-========================= */
+/* =========================================
+   МУЗЫКА
+========================================= */
 
 .music-button {
     position: fixed;
@@ -569,11 +748,12 @@ section {
 
     border: 1px solid rgba(225,196,113,.7);
 
-    background: rgba(10,10,10,.75);
+    background: rgba(10,10,10,.78);
 
     color: #e4c673;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -585,43 +765,61 @@ section {
 
     backdrop-filter: blur(8px);
 
-    box-shadow: 0 5px 20px rgba(0,0,0,.5);
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.5);
 }
 
-/* =========================
+/* =========================================
    АНИМАЦИЯ
-========================= */
+========================================= */
 
 @keyframes fadeUp {
+
     from {
         opacity: 0;
-        transform: translateY(35px);
+
+        transform:
+            translateY(35px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
-/* =========================
-   МОБИЛЬНАЯ ВЕРСИЯ
-========================= */
+/* =========================================
+   МОБИЛЬНЫЕ
+========================================= */
 
 @media (max-width: 800px) {
 
+    #about {
+        padding:
+            90px 25px;
+    }
+
     .about-container {
         grid-template-columns: 1fr;
-        gap: 60px;
+
+        gap: 65px;
     }
 
     .about-text {
         text-align: center;
     }
 
+    .about-text p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .about-list {
-        text-align: left;
         display: inline-block;
+
+        text-align: left;
     }
 
     .photo-frame {
@@ -630,23 +828,35 @@ section {
 
     .envelopes-wrapper {
         flex-direction: column;
+
         max-width: 420px;
+
         gap: 35px;
     }
 
     .envelope {
-        height: 280px;
+        height: 275px;
     }
 
     .works-subtitle {
-        line-height: 1.6;
         max-width: 330px;
+
         margin-left: auto;
         margin-right: auto;
+
+        line-height: 1.7;
     }
 }
 
 @media (max-width: 480px) {
+
+    .invitation-hint {
+        bottom: 30px;
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
+    }
 
     #about,
     #works,
@@ -655,8 +865,8 @@ section {
         padding-right: 18px;
     }
 
-    .cover-text h1 {
-        letter-spacing: 2px;
+    .about-text h1 {
+        font-size: 58px;
     }
 
     .envelope {
@@ -668,11 +878,24 @@ section {
     }
 
     .envelope-flap {
-        height: 135px;
+        height: 138px;
     }
 
     .seal {
-        top: 98px;
+        top: 97px;
+    }
+
+    .envelope-title {
+        font-size: 25px;
+    }
+
+    .contact-button {
+        width: 100%;
+    }
+
+    .music-button {
+        right: 18px;
+        bottom: 18px;
     }
 }
 
@@ -681,268 +904,327 @@ section {
 
 <body>
 
-<!-- =========================
-     ПЕРВЫЙ ЭКРАН
-========================= -->
 
-<section id="cover" onclick="startSite()">
+<!-- =====================================================
+     ОТДЕЛЬНАЯ ЗОЛОТАЯ ОТКРЫТКА
+===================================================== -->
 
-    <div class="cover-overlay"></div>
+<div id="invitation" onclick="openSite()">
 
-    <div class="cover-text">
+    <img
+        class="invitation-image"
+        src="cover.jpg"
+        alt="Открытка"
+    >
 
-        <h1>Welcome</h1>
+    <div class="invitation-shade"></div>
 
-        <p>Создаю сайты, которые запоминаются</p>
-
-        <div class="start-hint">
-            <span>Нажмите, чтобы открыть</span>
-            <div class="arrow"></div>
-        </div>
-
+    <div class="invitation-hint">
+        Нажмите, чтобы открыть
+        <div class="invitation-arrow"></div>
     </div>
 
-</section>
+</div>
 
 
-<!-- =========================
-     О СЕБЕ
-========================= -->
+<!-- =====================================================
+     САМ САЙТ
+===================================================== -->
 
-<section id="about">
+<div id="site">
 
-    <div class="about-container">
-
-        <div class="about-text">
-
-            <h2>Обо мне</h2>
-
-            <p>
-                Здесь будет информация обо мне,
-                которую мы подготовили для твоего
-                личного лендинга.
-            </p>
-
-            <p>
-                Создаю современные сайты,
-                лендинги и цифровые проекты,
-                уделяя внимание дизайну,
-                атмосфере и деталям.
-            </p>
-
-            <ul class="about-list">
-
-                <li>Современный дизайн</li>
-
-                <li>Индивидуальный подход</li>
-
-                <li>Адаптация под телефон</li>
-
-                <li>Работа с GitHub Pages</li>
-
-            </ul>
-
-        </div>
+    <div class="site-background"></div>
 
 
-        <div class="photo-frame">
+    <!-- =================================================
+         ОБО МНЕ
+    ================================================== -->
 
-            <img src="me.jpg" alt="Фото">
+    <section id="about">
 
-        </div>
-
-    </div>
-
-</section>
+        <div class="about-container">
 
 
-<!-- =========================
-     МОИ РАБОТЫ
-========================= -->
+            <div class="about-text">
 
-<section id="works">
+                <h1>
 
-    <h2 class="section-title">
-        Мои работы
-    </h2>
+                    <span>Меня</span>
 
-    <div class="gold-line"></div>
+                    Зовут<br>
+                    Корюн
 
-    <p class="works-subtitle">
-        Некоторые проекты, которые я создавал
-    </p>
+                </h1>
 
 
-    <div class="envelopes-wrapper">
+                <p>
+                    Создаю современные сайты,
+                    которые помогают представить
+                    человека, идею или бизнес
+                    красиво и индивидуально.
+                </p>
 
 
-        <!-- КОНВЕРТ 1 -->
+                <p>
+                    Для меня сайт — это не просто
+                    набор блоков и текста. Важны
+                    атмосфера, визуальная подача,
+                    удобство и внимание к деталям.
+                </p>
 
-        <a
-            class="envelope-link"
-            href="https://bit.ly/prozashita"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
 
-            <div class="envelope">
+                <ul class="about-list">
 
-                <div class="envelope-flap"></div>
+                    <li>
+                        Современный дизайн
+                    </li>
 
-                <div class="envelope-paper">
+                    <li>
+                        Индивидуальный подход
+                    </li>
 
-                    <div class="envelope-title">
-                        Сайт<br>
-                        огнезащиты
-                    </div>
+                    <li>
+                        Адаптация под телефон
+                    </li>
 
-                    <div class="envelope-small">
-                        Открыть проект
-                    </div>
-
-                </div>
-
-                <div class="seal">
-                    ✦
-                </div>
+                </ul>
 
             </div>
 
-        </a>
 
+            <div class="photo-frame">
 
-        <!-- КОНВЕРТ 2 -->
-
-        <a
-            class="envelope-link"
-            href="https://ambaryanalexey.github.io/metall/"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-
-            <div class="envelope">
-
-                <div class="envelope-flap"></div>
-
-                <div class="envelope-paper">
-
-                    <div class="envelope-title">
-                        Сайт<br>
-                        кузницы
-                    </div>
-
-                    <div class="envelope-small">
-                        Открыть проект
-                    </div>
-
-                </div>
-
-                <div class="seal">
-                    ✦
-                </div>
+                <img
+                    src="me.jpg"
+                    alt="Корюн"
+                >
 
             </div>
 
-        </a>
+
+        </div>
+
+    </section>
 
 
-        <!-- КОНВЕРТ 3 -->
+    <!-- =================================================
+         МОИ РАБОТЫ
+    ================================================== -->
 
-        <a
-            class="envelope-link"
-            href="https://koryunsilviawedding.github.io/wedding-site/?invite=2026"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+    <section id="works">
 
-            <div class="envelope">
 
-                <div class="envelope-flap"></div>
+        <h2 class="section-title">
+            Мои работы
+        </h2>
 
-                <div class="envelope-paper">
 
-                    <div class="envelope-title">
-                        Свадебное<br>
-                        приглашение
+        <div class="gold-line"></div>
+
+
+        <p class="works-subtitle">
+            Несколько проектов, которые я создавал
+        </p>
+
+
+        <div class="envelopes-wrapper">
+
+
+            <!-- =========================================
+                 ЛЕНДИНГ 1
+            ========================================== -->
+
+            <a
+                class="envelope-link"
+                href="https://bit.ly/prozashita"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <div class="envelope">
+
+                    <div class="envelope-flap"></div>
+
+
+                    <div class="envelope-paper">
+
+                        <div class="envelope-title">
+                            Лендинг
+                        </div>
+
+                        <div class="envelope-small">
+                            Открыть проект
+                        </div>
+
                     </div>
 
-                    <div class="envelope-small">
-                        Открыть проект
+
+                    <div class="seal">
+                        ✦
                     </div>
 
                 </div>
 
-                <div class="seal">
-                    ✦
+            </a>
+
+
+            <!-- =========================================
+                 ЛЕНДИНГ 2
+            ========================================== -->
+
+            <a
+                class="envelope-link"
+                href="https://ambaryanalexey.github.io/metall/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <div class="envelope">
+
+                    <div class="envelope-flap"></div>
+
+
+                    <div class="envelope-paper">
+
+                        <div class="envelope-title">
+                            Лендинг
+                        </div>
+
+                        <div class="envelope-small">
+                            Открыть проект
+                        </div>
+
+                    </div>
+
+
+                    <div class="seal">
+                        ✦
+                    </div>
+
                 </div>
 
-            </div>
-
-        </a>
+            </a>
 
 
-    </div>
+            <!-- =========================================
+                 СВАДЕБНОЕ ПРИГЛАШЕНИЕ
+            ========================================== -->
 
-</section>
+            <a
+                class="envelope-link"
+                href="https://koryunsilviawedding.github.io/wedding-site/?invite=2026"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
+                <div class="envelope">
 
-<!-- =========================
-     КОНТАКТЫ
-========================= -->
-
-<section id="contact">
-
-    <h2 class="section-title">
-        Давайте создадим
-    </h2>
-
-    <div class="gold-line"></div>
-
-    <p class="contact-text">
-
-        Если у вас есть идея или проект,
-        который хочется воплотить в жизнь —
-        буду рад обсудить его с вами.
-
-    </p>
+                    <div class="envelope-flap"></div>
 
 
-    <div class="contact-buttons">
+                    <div class="envelope-paper">
 
-        <a
-            class="contact-button"
-            href="tel:YOUR_PHONE"
-        >
-            Позвонить
-        </a>
+                        <div class="envelope-title">
+                            Свадебное<br>
+                            приглашение
+                        </div>
 
+                        <div class="envelope-small">
+                            Открыть проект
+                        </div>
 
-        <a
-            class="contact-button"
-            href="https://wa.me/YOUR_PHONE"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            WhatsApp
-        </a>
-
-    </div>
+                    </div>
 
 
-    <div class="footer">
-        © 2026
-    </div>
+                    <div class="seal">
+                        ✦
+                    </div>
 
-</section>
+                </div>
+
+            </a>
 
 
-<!-- =========================
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         КОНТАКТЫ
+    ================================================== -->
+
+    <section id="contact">
+
+
+        <h2 class="section-title">
+            Давайте создадим
+        </h2>
+
+
+        <div class="gold-line"></div>
+
+
+        <p class="contact-text">
+
+            Если у вас есть идея или проект,
+            который хочется воплотить в жизнь —
+            буду рад обсудить его с вами.
+
+        </p>
+
+
+        <div class="contact-buttons">
+
+
+            <a
+                class="contact-button"
+                href="tel:YOUR_PHONE"
+            >
+                Позвонить
+            </a>
+
+
+            <a
+                class="contact-button"
+                href="https://wa.me/YOUR_PHONE"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                WhatsApp
+            </a>
+
+
+        </div>
+
+
+        <div class="footer">
+            © 2026 · Корюн
+        </div>
+
+
+    </section>
+
+</div>
+
+
+<!-- =====================================================
      МУЗЫКА
-========================= -->
+===================================================== -->
 
-<audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
+<audio
+    id="music"
+    loop
+    preload="auto"
+>
+    <source
+        src="music.mp3"
+        type="audio/mpeg"
+    >
 </audio>
+
+
+<!-- Кнопка музыки -->
 
 <div
     class="music-button"
@@ -955,44 +1237,93 @@ section {
 
 <script>
 
-const music = document.getElementById("music");
-let started = false;
+/* =========================================
+   ЭЛЕМЕНТЫ
+========================================= */
+
+const invitation =
+    document.getElementById("invitation");
+
+const site =
+    document.getElementById("site");
+
+const music =
+    document.getElementById("music");
 
 
-/* Открытие сайта */
+let musicStarted = false;
 
-function startSite() {
 
-    if (!started) {
+/* =========================================
+   ОТКРЫТЬ САЙТ
+========================================= */
 
-        music.volume = 0.5;
+function openSite() {
 
-        music.play()
-        .then(() => {
-            started = true;
-        })
-        .catch(() => {
-            console.log("Музыка ожидает разрешения браузера");
-        });
+    /* Запускаем музыку */
+
+    music.volume = 0.5;
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+
+        playPromise
+            .then(() => {
+
+                musicStarted = true;
+
+            })
+            .catch(() => {
+
+                console.log(
+                    "Браузер заблокировал автоматическое воспроизведение"
+                );
+
+            });
 
     }
 
-    document.getElementById("about")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+
+    /* Сначала показываем сам сайт */
+
+    site.classList.add("visible");
+
+
+    /* Затем красиво убираем открытку */
+
+    setTimeout(() => {
+
+        invitation.classList.add("hide");
+
+    }, 150);
+
+
+    /* Запрещаем повторное нажатие */
+
+    invitation.onclick = null;
+
 }
 
 
-/* Кнопка музыки */
+/* =========================================
+   МУЗЫКА
+========================================= */
 
 function toggleMusic(event) {
 
     event.stopPropagation();
 
+
     if (music.paused) {
 
-        music.play();
+        music.play()
+            .then(() => {
+
+                musicStarted = true;
+
+            })
+            .catch(() => {});
 
     } else {
 
@@ -1001,23 +1332,6 @@ function toggleMusic(event) {
     }
 
 }
-
-
-/* Если пользователь нажал где-нибудь после открытия */
-
-document.addEventListener("click", function() {
-
-    if (!started) {
-
-        music.play()
-        .then(() => {
-            started = true;
-        })
-        .catch(() => {});
-
-    }
-
-}, { once: true });
 
 </script>
 
