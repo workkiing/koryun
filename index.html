@@ -12,10 +12,6 @@
 
 <style>
 
-/* =========================================
-   ОСНОВА
-========================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -66,9 +62,7 @@ body {
 .invitation-image {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
     display: block;
 
     transition: transform 1.2s ease;
@@ -77,8 +71,6 @@ body {
 #invitation.hide .invitation-image {
     transform: scale(1.08);
 }
-
-/* Затемнение */
 
 .invitation-shade {
     position: absolute;
@@ -93,8 +85,6 @@ body {
 
     pointer-events: none;
 }
-
-/* Подсказка */
 
 .invitation-hint {
     position: absolute;
@@ -175,7 +165,7 @@ body {
 }
 
 /* =========================================
-   ФОН САЙТА
+   ФОН
 ========================================= */
 
 .site-background {
@@ -238,7 +228,7 @@ section {
 }
 
 /* =========================================
-   ABOUT
+   ОБО МНЕ
 ========================================= */
 
 #about {
@@ -271,27 +261,30 @@ section {
 .about-text h1 {
     font-family: 'Cormorant Garamond', serif;
 
-    font-size: clamp(50px, 7vw, 85px);
+    /* БЫЛО 50-85px — сделал меньше */
+    font-size: clamp(42px, 5.5vw, 68px);
 
     font-weight: 500;
 
+    /* ОДИН ЦВЕТ */
     color: #e7c875;
 
-    line-height: .95;
+    line-height: 1;
 
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .about-text h1 span {
-    display: block;
+    display: inline;
 
-    color: #f2eadb;
+    /* ТОЖЕ ЗОЛОТОЙ */
+    color: #e7c875;
 
-    font-size: .48em;
+    font-size: inherit;
 
-    letter-spacing: 4px;
+    letter-spacing: normal;
 
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }
 
 .about-text p {
@@ -391,7 +384,7 @@ section {
 }
 
 /* =========================================
-   РАЗДЕЛ РАБОТ
+   РАБОТЫ
 ========================================= */
 
 #works {
@@ -502,8 +495,6 @@ section {
         0 0 35px rgba(213,176,79,.22);
 }
 
-/* Внутренняя бумага */
-
 .envelope-paper {
     position: absolute;
 
@@ -546,8 +537,6 @@ section {
     transform: translateY(-12px);
 }
 
-/* Клапан */
-
 .envelope-flap {
     position: absolute;
 
@@ -581,8 +570,6 @@ section {
 .envelope:hover .envelope-flap {
     transform: rotateX(25deg);
 }
-
-/* Печать */
 
 .seal {
     position: absolute;
@@ -623,8 +610,6 @@ section {
     box-shadow:
         0 6px 16px rgba(0,0,0,.4);
 }
-
-/* Название */
 
 .envelope-title {
     font-family: 'Cormorant Garamond', serif;
@@ -797,33 +782,90 @@ section {
 @media (max-width: 800px) {
 
     #about {
-        padding:
-            90px 25px;
+        padding: 70px 14px;
     }
+
+    /*
+       ВАЖНО:
+       НА ТЕЛЕФОНЕ:
+       ФОТО СЛЕВА → ТЕКСТ СПРАВА
+    */
 
     .about-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 40% 60%;
 
-        gap: 65px;
+        gap: 14px;
+
+        align-items: center;
     }
 
+    /* Фото идёт первым */
+    .photo-frame {
+        order: 1;
+
+        width: 100%;
+
+        max-width: none;
+
+        margin: 0;
+    }
+
+    /* Текст идёт вторым */
     .about-text {
-        text-align: center;
+        order: 2;
+
+        text-align: left;
+
+        min-width: 0;
+    }
+
+    /* Маленький заголовок */
+    .about-text h1 {
+        font-size: 38px;
+
+        line-height: .98;
+
+        margin-bottom: 18px;
+
+        color: #e7c875;
+    }
+
+    .about-text h1 span {
+        color: #e7c875;
+
+        font-size: inherit;
+
+        letter-spacing: normal;
     }
 
     .about-text p {
-        margin-left: auto;
-        margin-right: auto;
+        font-size: 11px;
+
+        line-height: 1.55;
+
+        margin-bottom: 13px;
     }
 
     .about-list {
-        display: inline-block;
+        margin-top: 18px;
 
-        text-align: left;
+        display: block;
     }
 
-    .photo-frame {
-        max-width: 330px;
+    .about-list li {
+        padding-left: 15px;
+
+        margin-bottom: 9px;
+
+        font-size: 9px;
+
+        line-height: 1.3;
+    }
+
+    .about-list li::before {
+        top: 3px;
+
+        font-size: 5px;
     }
 
     .envelopes-wrapper {
@@ -848,6 +890,10 @@ section {
     }
 }
 
+/* =========================================
+   ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ
+========================================= */
+
 @media (max-width: 480px) {
 
     .invitation-hint {
@@ -861,12 +907,55 @@ section {
     #about,
     #works,
     #contact {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /*
+       Фото всё равно СЛЕВА,
+       текст всё равно СПРАВА
+    */
+
+    .about-container {
+        grid-template-columns: 39% 61%;
+
+        gap: 10px;
     }
 
     .about-text h1 {
-        font-size: 58px;
+        font-size: 32px;
+
+        line-height: .98;
+
+        margin-bottom: 14px;
+    }
+
+    .about-text p {
+        font-size: 10px;
+
+        line-height: 1.5;
+
+        margin-bottom: 11px;
+    }
+
+    .about-list {
+        margin-top: 14px;
+    }
+
+    .about-list li {
+        font-size: 8px;
+
+        padding-left: 12px;
+
+        margin-bottom: 7px;
+    }
+
+    .photo-frame::before {
+        inset: -6px;
+    }
+
+    .photo-frame::after {
+        inset: -3px;
     }
 
     .envelope {
@@ -904,9 +993,8 @@ section {
 
 <body>
 
-
 <!-- =====================================================
-     ОТДЕЛЬНАЯ ЗОЛОТАЯ ОТКРЫТКА
+     ОТКРЫТКА
 ===================================================== -->
 
 <div id="invitation" onclick="openSite()">
@@ -945,17 +1033,14 @@ section {
         <div class="about-container">
 
 
+            <!-- ТЕКСТ -->
+
             <div class="about-text">
 
                 <h1>
-
-                    <span>Меня</span>
-
-                    Зовут<br>
+                    Зовут меня<br>
                     Корюн
-
                 </h1>
-
 
                 <p>
                     Создаю современные сайты,
@@ -964,14 +1049,12 @@ section {
                     красиво и индивидуально.
                 </p>
 
-
                 <p>
                     Для меня сайт — это не просто
                     набор блоков и текста. Важны
                     атмосфера, визуальная подача,
                     удобство и внимание к деталям.
                 </p>
-
 
                 <ul class="about-list">
 
@@ -991,6 +1074,8 @@ section {
 
             </div>
 
+
+            <!-- ФОТО -->
 
             <div class="photo-frame">
 
@@ -1013,14 +1098,11 @@ section {
 
     <section id="works">
 
-
         <h2 class="section-title">
             Мои работы
         </h2>
 
-
         <div class="gold-line"></div>
-
 
         <p class="works-subtitle">
             Несколько проектов, которые я создавал
@@ -1029,10 +1111,6 @@ section {
 
         <div class="envelopes-wrapper">
 
-
-            <!-- =========================================
-                 ЛЕНДИНГ 1
-            ========================================== -->
 
             <a
                 class="envelope-link"
@@ -1045,7 +1123,6 @@ section {
 
                     <div class="envelope-flap"></div>
 
-
                     <div class="envelope-paper">
 
                         <div class="envelope-title">
@@ -1058,7 +1135,6 @@ section {
 
                     </div>
 
-
                     <div class="seal">
                         ✦
                     </div>
@@ -1067,10 +1143,6 @@ section {
 
             </a>
 
-
-            <!-- =========================================
-                 ЛЕНДИНГ 2
-            ========================================== -->
 
             <a
                 class="envelope-link"
@@ -1083,7 +1155,6 @@ section {
 
                     <div class="envelope-flap"></div>
 
-
                     <div class="envelope-paper">
 
                         <div class="envelope-title">
@@ -1096,7 +1167,6 @@ section {
 
                     </div>
 
-
                     <div class="seal">
                         ✦
                     </div>
@@ -1105,10 +1175,6 @@ section {
 
             </a>
 
-
-            <!-- =========================================
-                 СВАДЕБНОЕ ПРИГЛАШЕНИЕ
-            ========================================== -->
 
             <a
                 class="envelope-link"
@@ -1120,7 +1186,6 @@ section {
                 <div class="envelope">
 
                     <div class="envelope-flap"></div>
-
 
                     <div class="envelope-paper">
 
@@ -1134,7 +1199,6 @@ section {
                         </div>
 
                     </div>
-
 
                     <div class="seal">
                         ✦
@@ -1156,14 +1220,11 @@ section {
 
     <section id="contact">
 
-
         <h2 class="section-title">
             Давайте создадим
         </h2>
 
-
         <div class="gold-line"></div>
-
 
         <p class="contact-text">
 
@@ -1173,9 +1234,7 @@ section {
 
         </p>
 
-
         <div class="contact-buttons">
-
 
             <a
                 class="contact-button"
@@ -1183,7 +1242,6 @@ section {
             >
                 Позвонить
             </a>
-
 
             <a
                 class="contact-button"
@@ -1194,14 +1252,11 @@ section {
                 WhatsApp
             </a>
 
-
         </div>
-
 
         <div class="footer">
             © 2026 · Корюн
         </div>
-
 
     </section>
 
@@ -1224,8 +1279,6 @@ section {
 </audio>
 
 
-<!-- Кнопка музыки -->
-
 <div
     class="music-button"
     onclick="toggleMusic(event)"
@@ -1237,10 +1290,6 @@ section {
 
 <script>
 
-/* =========================================
-   ЭЛЕМЕНТЫ
-========================================= */
-
 const invitation =
     document.getElementById("invitation");
 
@@ -1250,7 +1299,6 @@ const site =
 const music =
     document.getElementById("music");
 
-
 let musicStarted = false;
 
 
@@ -1259,8 +1307,6 @@ let musicStarted = false;
 ========================================= */
 
 function openSite() {
-
-    /* Запускаем музыку */
 
     music.volume = 0.5;
 
@@ -1284,13 +1330,7 @@ function openSite() {
 
     }
 
-
-    /* Сначала показываем сам сайт */
-
     site.classList.add("visible");
-
-
-    /* Затем красиво убираем открытку */
 
     setTimeout(() => {
 
@@ -1298,11 +1338,7 @@ function openSite() {
 
     }, 150);
 
-
-    /* Запрещаем повторное нажатие */
-
     invitation.onclick = null;
-
 }
 
 
@@ -1313,7 +1349,6 @@ function openSite() {
 function toggleMusic(event) {
 
     event.stopPropagation();
-
 
     if (music.paused) {
 
