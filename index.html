@@ -2,165 +2,857 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Корюн — Огнезащита</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Корюн — обо мне и мои работы</title>
+
+<meta name="description" content="Персональный сайт Корюна — обо мне, мои работы и контакты.">
+
 <style>
-  body {
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('img/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    overflow-x: hidden;
-  }
-
-  /* затемнение фона */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: -1;
-  }
-
-  .slider {
-    height: 100vh;
-    position: relative;
-  }
-
-  .slide {
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none;
-    padding: 60px;
+    padding: 0;
     box-sizing: border-box;
-  }
+}
 
-  .slide.active {
-    display: block;
-  }
+html {
+    scroll-behavior: smooth;
+}
 
-  h1 {
-    font-size: 52px;
-    margin-bottom: 20px;
-  }
+body {
+    background: #0c0b09;
+    color: #f4eee3;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
 
-  h2, p {
-    font-size: 28px;
-    max-width: 900px;
-    line-height: 1.4;
-  }
+/* =========================
+   ОБЩЕЕ
+========================= */
 
-  .arrow {
-    position: absolute;
-    top: 50%;
-    font-size: 60px;
-    color: white;
+section {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.gold {
+    color: #d7b56d;
+}
+
+.gold-line {
+    width: 70px;
+    height: 1px;
+    background: #caa75c;
+    margin: 22px 0;
+}
+
+/* =========================
+   1. ОТКРЫТКА
+========================= */
+
+#cover {
+    height: 100vh;
+    min-height: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.35)
+        ),
+        url("cover.jpg") center center / cover no-repeat;
+
     cursor: pointer;
-    user-select: none;
-    text-shadow: 0 0 20px black;
-  }
+}
 
-  .arrow.left { left: 20px; }
-  .arrow.right { right: 20px; }
+.cover-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(0,0,0,.25) 100%
+        );
+}
 
-  .btn {
-    display: inline-block;
+.cover-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px;
+}
+
+.cover-hint {
     margin-top: 30px;
-    padding: 15px 30px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.4);
-    color: white;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 24px;
-    backdrop-filter: blur(4px);
-  }
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.75);
+    animation: pulse 2s infinite;
+}
 
-  audio {
+.open-icon {
+    width: 65px;
+    height: 65px;
+    border: 1px solid rgba(215,181,109,.8);
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d7b56d;
+    font-size: 25px;
+    animation: breathe 2.5s infinite;
+}
+
+@keyframes breathe {
+    0%,100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(215,181,109,0);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(215,181,109,.25);
+    }
+}
+
+@keyframes pulse {
+    0%,100% { opacity: .5; }
+    50% { opacity: 1; }
+}
+
+/* =========================
+   2. ОБО МНЕ
+========================= */
+
+#about {
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(178,142,73,.09),
+            transparent 35%
+        ),
+        #0d0c0a;
+
+    display: flex;
+    align-items: center;
+}
+
+.about-wrap {
+    width: min(1200px, 90%);
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+
+    align-items: center;
+}
+
+.about-text {
+    padding: 30px 0;
+}
+
+.small-title {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c8a660;
+}
+
+.about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 85px);
+    line-height: .9;
+    font-weight: 500;
+    margin-top: 18px;
+}
+
+.about-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: #d7b56d;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    max-width: 520px;
+    color: rgba(244,238,227,.75);
+    line-height: 1.9;
+    font-size: 15px;
+}
+
+.about-list {
+    margin-top: 30px;
+    list-style: none;
+}
+
+.about-list li {
+    margin: 13px 0;
+    color: rgba(244,238,227,.85);
+}
+
+.about-list li::before {
+    content: "—";
+    color: #d7b56d;
+    margin-right: 12px;
+}
+
+/* фото */
+
+.about-photo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.photo-frame {
+    width: min(450px, 100%);
+    position: relative;
+    padding: 13px;
+}
+
+.photo-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(215,181,109,.55);
+    transform: translate(18px, 18px);
+    z-index: 0;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 620px;
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+    position: relative;
+    z-index: 1;
+
+    filter: saturate(.9);
+}
+
+/* =========================
+   3. РАБОТЫ
+========================= */
+
+#works {
+    background: #090908;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+}
+
+.works-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.works-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 500;
+}
+
+.slider {
+    width: min(1150px, 92%);
+    margin: auto;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    gap: 18px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: none;
+
+    cursor: grab;
+}
+
+.slides::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    flex: 0 0 80%;
+    max-width: 850px;
+
+    scroll-snap-align: center;
+
+    height: 65vh;
+    min-height: 400px;
+
+    border: 1px solid rgba(215,181,109,.25);
+
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform .7s ease;
+}
+
+.slide:hover img {
+    transform: scale(1.03);
+}
+
+.slider-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.slider-buttons button {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(215,181,109,.5);
+
+    background: transparent;
+    color: #d7b56d;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.slider-buttons button:hover {
+    background: rgba(215,181,109,.1);
+}
+
+/* =========================
+   4. КОНТАКТЫ
+========================= */
+
+#contact {
+    min-height: 80vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(184,146,70,.10),
+            transparent 50%
+        ),
+        #0b0a08;
+}
+
+.contact-wrap {
+    width: min(700px, 90%);
+}
+
+.contact-small {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c8a660;
+}
+
+.contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 8vw, 90px);
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.contact-text {
+    color: rgba(244,238,227,.7);
+    margin: 25px auto 35px;
+    line-height: 1.8;
+}
+
+.contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    min-width: 210px;
+    padding: 17px 28px;
+
+    border: 1px solid #c8a660;
+
+    color: #f4eee3;
+    text-decoration: none;
+
+    letter-spacing: 2px;
+    font-size: 12px;
+    text-transform: uppercase;
+
+    transition: .3s;
+}
+
+.contact-btn:hover {
+    background: #c8a660;
+    color: #0b0a08;
+}
+
+.footer {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.3);
+}
+
+/* =========================
+   МУЗЫКА
+========================= */
+
+.music-button {
     position: fixed;
+    right: 20px;
     bottom: 20px;
-    left: 20px;
-    width: 300px;
-  }
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(215,181,109,.6);
+
+    background: rgba(10,9,7,.8);
+    backdrop-filter: blur(10px);
+
+    color: #d7b56d;
+    font-size: 18px;
+
+    z-index: 100;
+
+    cursor: pointer;
+}
+
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
+@media (max-width: 800px) {
+
+    .about-wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 70px 0;
+    }
+
+    .about-text {
+        order: 1;
+    }
+
+    .about-photo {
+        order: 2;
+    }
+
+    .photo-frame img {
+        height: 500px;
+    }
+
+    .slide {
+        flex: 0 0 90%;
+        height: 60vh;
+    }
+
+    .about-title {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .about-title {
+        font-size: 52px;
+    }
+
+    .about-subtitle {
+        font-size: 24px;
+    }
+
+    .about-description {
+        font-size: 14px;
+    }
+
+    .photo-frame img {
+        height: 470px;
+    }
+
+    .slide {
+        flex: 0 0 94%;
+        height: 55vh;
+        min-height: 350px;
+    }
+
+    .contact-title {
+        font-size: 55px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="overlay"></div>
+<!-- =====================================
+     МУЗЫКА
+===================================== -->
 
-<audio autoplay loop controls>
-  <source src="music.mp3" type="audio/mpeg">
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="slider">
+<button class="music-button" id="musicButton">♫</button>
 
-  <!-- СЛАЙД 1 -->
-  <div class="slide active">
-    <h1>Корюн</h1>
-    <h2>Создаю сайты для компаний, лендинги и пригласительные на мероприятия</h2>
-  </div>
 
-  <!-- СЛАЙД 2 -->
-  <div class="slide">
-    <h1>Что такое огнезащита?</h1>
-    <p>
-      Огнезащита — это комплекс мер и материалов, которые повышают огнестойкость конструкций,
-      замедляют распространение огня и обеспечивают безопасность здания и людей.
-    </p>
-  </div>
+<!-- =====================================
+     1. ОТКРЫТКА
+===================================== -->
 
-  <!-- СЛАЙД 3 -->
-  <div class="slide">
-    <h1>Наши работы</h1>
-    <p>Здесь появится галерея после загрузки изображений.</p>
-  </div>
+<section id="cover">
 
-  <!-- СЛАЙД 4 -->
-  <div class="slide">
-    <h1>Пригласительные</h1>
-    <p>
-      Делаю пригласительные на корпоративы, презентации, деловые мероприятия.
-      Стиль — строгий, современный, под фирменный бренд.
-    </p>
-  </div>
+    <div class="cover-overlay"></div>
 
-  <!-- СЛАЙД 5 -->
-  <div class="slide">
-    <h1>Контакты</h1>
-    <p style="font-size:32px;">
-      Телефон: <a href="tel:+79999999999" style="color:white;">+7 999 999 99 99</a>
-    </p>
-    <a class="btn" href="https://max.ru">Перейти в МАКС</a>
-  </div>
+    <div class="cover-content">
 
-  <div class="arrow left" onclick="prevSlide()">‹</div>
-  <div class="arrow right" onclick="nextSlide()">›</div>
+        <div class="open-icon">
+            ♢
+        </div>
 
-</div>
+        <div class="cover-hint">
+            Нажмите, чтобы открыть
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     2. ОБО МНЕ
+===================================== -->
+
+<section id="about">
+
+    <div class="about-wrap">
+
+        <div class="about-text">
+
+            <div class="small-title">
+                Персональный сайт
+            </div>
+
+            <h1 class="about-title">
+                Корюн
+            </h1>
+
+            <div class="gold-line"></div>
+
+            <div class="about-subtitle">
+                Обо мне
+            </div>
+
+            <p class="about-description">
+                Здесь будет тот текст о тебе, который мы подготовили
+                ранее. Я сохраню его структуру и стиль, когда ты
+                пришлёшь/загрузишь исходную фотографию и окончательный
+                текст.
+            </p>
+
+            <ul class="about-list">
+
+                <li>Индивидуальный подход</li>
+                <li>Современный дизайн</li>
+                <li>Работа с вниманием к деталям</li>
+                <li>Создание проектов под конкретного человека</li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="about-photo">
+
+            <div class="photo-frame">
+
+                <!-- ТВОЯ ФОТОГРАФИЯ -->
+                <img src="me.jpg" alt="Корюн">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     3. МОИ РАБОТЫ
+===================================== -->
+
+<section id="works">
+
+    <div class="works-header">
+
+        <div class="small-title">
+            Портфолио
+        </div>
+
+        <h2 class="works-title">
+            Мои работы
+        </h2>
+
+    </div>
+
+
+    <div class="slider">
+
+        <div class="slides" id="slides">
+
+            <div class="slide">
+                <img src="work1.jpg" alt="Работа">
+            </div>
+
+            <div class="slide">
+                <img src="work2.jpg" alt="Работа">
+            </div>
+
+            <div class="slide">
+                <img src="work3.jpg" alt="Работа">
+            </div>
+
+            <div class="slide">
+                <img src="work4.jpg" alt="Работа">
+            </div>
+
+            <div class="slide">
+                <img src="work5.jpg" alt="Работа">
+            </div>
+
+        </div>
+
+
+        <div class="slider-buttons">
+
+            <button id="prev">‹</button>
+            <button id="next">›</button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     4. КОНТАКТЫ
+===================================== -->
+
+<section id="contact">
+
+    <div class="contact-wrap">
+
+        <div class="contact-small">
+            Связаться со мной
+        </div>
+
+        <h2 class="contact-title">
+            Давайте<br>
+            поговорим
+        </h2>
+
+        <div class="gold-line" style="margin:22px auto;"></div>
+
+        <p class="contact-text">
+            Если вам понравились мои работы или вы хотите
+            обсудить новый проект — свяжитесь со мной.
+        </p>
+
+
+        <div class="contact-buttons">
+
+            <!-- ЗАМЕНИ НОМЕР НА СВОЙ -->
+            <a
+                class="contact-btn"
+                href="tel:YOUR_PHONE"
+            >
+                Позвонить
+            </a>
+
+            <!-- ЗАМЕНИ НОМЕР НА СВОЙ -->
+            <a
+                class="contact-btn"
+                href="https://wa.me/YOUR_PHONE"
+                target="_blank"
+            >
+                WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        © 2026
+    </div>
+
+</section>
+
 
 <script>
-  let current = 0;
-  const slides = document.querySelectorAll('.slide');
 
-  function showSlide(i) {
-    slides.forEach(s => s.classList.remove('active'));
-    slides[i].classList.add('active');
-  }
+/* =====================================
+   ОТКРЫТИЕ САЙТА + МУЗЫКА
+===================================== */
 
-  function nextSlide() {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  }
+const cover = document.getElementById("cover");
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
 
-  function prevSlide() {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
-  }
+let musicStarted = false;
+
+cover.addEventListener("click", function () {
+
+    if (!musicStarted) {
+
+        music.play()
+            .then(() => {
+                musicStarted = true;
+            })
+            .catch(() => {});
+
+    }
+
+    document.getElementById("about").scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
+
+
+/* =====================================
+   КНОПКА МУЗЫКИ
+===================================== */
+
+musicButton.addEventListener("click", function () {
+
+    if (music.paused) {
+
+        music.play();
+        musicButton.textContent = "♫";
+
+    } else {
+
+        music.pause();
+        musicButton.textContent = "♪";
+
+    }
+
+});
+
+
+/* =====================================
+   СЛАЙДЕР РАБОТ
+===================================== */
+
+const slides = document.getElementById("slides");
+const next = document.getElementById("next");
+const prev = document.getElementById("prev");
+
+next.addEventListener("click", () => {
+
+    slides.scrollBy({
+        left: slides.clientWidth * 0.85,
+        behavior: "smooth"
+    });
+
+});
+
+prev.addEventListener("click", () => {
+
+    slides.scrollBy({
+        left: -slides.clientWidth * 0.85,
+        behavior: "smooth"
+    });
+
+});
+
+
+/* =====================================
+   СВАЙП МЫШКОЙ
+===================================== */
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+slides.addEventListener("mousedown", (e) => {
+
+    isDown = true;
+    slides.style.cursor = "grabbing";
+
+    startX = e.pageX - slides.offsetLeft;
+    scrollLeft = slides.scrollLeft;
+
+});
+
+slides.addEventListener("mouseleave", () => {
+
+    isDown = false;
+    slides.style.cursor = "grab";
+
+});
+
+slides.addEventListener("mouseup", () => {
+
+    isDown = false;
+    slides.style.cursor = "grab";
+
+});
+
+slides.addEventListener("mousemove", (e) => {
+
+    if (!isDown) return;
+
+    e.preventDefault();
+
+    const x = e.pageX - slides.offsetLeft;
+    const walk = (x - startX) * 1.5;
+
+    slides.scrollLeft = scrollLeft - walk;
+
+});
+
 </script>
 
 </body>
