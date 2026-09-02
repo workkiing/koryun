@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Огнезащита — Корюн</title>
+<title>Корюн — огнезащита</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,30 +11,44 @@
     font-family: Arial, sans-serif;
     background: url('img/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    overflow-x: hidden;
     color: white;
     text-shadow: 0 0 10px black;
+    overflow-x: hidden;
   }
 
   .slider {
-    width: 100%;
     height: 100vh;
     position: relative;
   }
 
   .slide {
-    width: 100%;
     height: 100vh;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     display: none;
-    padding: 40px;
+    padding: 60px;
     box-sizing: border-box;
   }
 
   .slide.active {
     display: block;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 32px;
+    max-width: 800px;
+  }
+
+  p {
+    font-size: 26px;
+    max-width: 900px;
   }
 
   .arrow {
@@ -78,40 +92,42 @@
 
 <div class="slider">
 
-  <!-- СЛАЙД 1 — Корюн -->
+  <!-- СЛАЙД 1 -->
   <div class="slide active">
     <h1>Корюн</h1>
     <h2>Сделаю сайт для компании, лендинг и пригласительные на мероприятие</h2>
   </div>
 
-  <!-- СЛАЙД 2 — Что такое огнезащита -->
+  <!-- СЛАЙД 2 -->
   <div class="slide">
     <h1>Что такое огнезащита?</h1>
-    <p style="font-size:28px; max-width:800px;">
+    <p>
       Огнезащита — это комплекс мер и материалов, которые повышают огнестойкость конструкций,
       замедляют распространение огня и обеспечивают безопасность здания и людей.
     </p>
   </div>
 
-  <!-- СЛАЙД 3 — Галерея работ -->
+  <!-- СЛАЙД 3 -->
   <div class="slide">
     <h1>Наши работы</h1>
-    <p style="font-size:24px;">Здесь будет галерея работ после загрузки фото.</p>
+    <p>Здесь будет галерея работ после загрузки фото.</p>
   </div>
 
-  <!-- СЛАЙД 4 — Пригласительные -->
+  <!-- СЛАЙД 4 -->
   <div class="slide">
     <h1>Пригласительные</h1>
-    <p style="font-size:26px; max-width:800px;">
+    <p>
       Создаю пригласительные на мероприятия — корпоративные, деловые, презентации, встречи.
       Дизайн под стиль компании.
     </p>
   </div>
 
-  <!-- СЛАЙД 5 — Контакты -->
+  <!-- СЛАЙД 5 -->
   <div class="slide">
     <h1>Контакты</h1>
-    <div style="font-size:32px;">Телефон: <a href="tel:+79999999999" style="color:white;">+7 999 999 99 99</a></div>
+    <p style="font-size:32px;">
+      Телефон: <a href="tel:+79999999999" style="color:white;">+7 999 999 99 99</a>
+    </p>
     <a class="btn" href="https://max.ru">Перейти в МАКС</a>
   </div>
 
