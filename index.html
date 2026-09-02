@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Корюн — огнезащита</title>
+<title>Корюн — Огнезащита</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -12,8 +12,15 @@
     background: url('img/background.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    text-shadow: 0 0 10px black;
     overflow-x: hidden;
+  }
+
+  /* затемнение фона */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: -1;
   }
 
   .slider {
@@ -37,18 +44,14 @@
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 52px;
     margin-bottom: 20px;
   }
 
-  h2 {
-    font-size: 32px;
-    max-width: 800px;
-  }
-
-  p {
-    font-size: 26px;
+  h2, p {
+    font-size: 28px;
     max-width: 900px;
+    line-height: 1.4;
   }
 
   .arrow {
@@ -66,13 +69,15 @@
 
   .btn {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 15px 30px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
     color: white;
     border-radius: 10px;
     text-decoration: none;
     font-size: 24px;
+    backdrop-filter: blur(4px);
   }
 
   audio {
@@ -86,6 +91,8 @@
 
 <body>
 
+<div class="overlay"></div>
+
 <audio autoplay loop controls>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -95,7 +102,7 @@
   <!-- СЛАЙД 1 -->
   <div class="slide active">
     <h1>Корюн</h1>
-    <h2>Сделаю сайт для компании, лендинг и пригласительные на мероприятие</h2>
+    <h2>Создаю сайты для компаний, лендинги и пригласительные на мероприятия</h2>
   </div>
 
   <!-- СЛАЙД 2 -->
@@ -110,15 +117,15 @@
   <!-- СЛАЙД 3 -->
   <div class="slide">
     <h1>Наши работы</h1>
-    <p>Здесь будет галерея работ после загрузки фото.</p>
+    <p>Здесь появится галерея после загрузки изображений.</p>
   </div>
 
   <!-- СЛАЙД 4 -->
   <div class="slide">
     <h1>Пригласительные</h1>
     <p>
-      Создаю пригласительные на мероприятия — корпоративные, деловые, презентации, встречи.
-      Дизайн под стиль компании.
+      Делаю пригласительные на корпоративы, презентации, деловые мероприятия.
+      Стиль — строгий, современный, под фирменный бренд.
     </p>
   </div>
 
